@@ -6,6 +6,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.auto.service:auto-service:1.0-rc3'
     implementation 'com.squareup:javapoet:1.9.0'
+    implementation project(':cursor-annotations')
 }
 
 sourceCompatibility = "1.8"
@@ -14,7 +15,7 @@ targetCompatibility = "1.8"
 publish {
     groupId = 'iam.thevoid.cursorprocessor'
     artifactId = 'cursor-processor'
-    publishVersion = '0.1.5'
+    publishVersion = '0.1.6'
     desc = 'Annotation processor for cursor-observable-list'
     licences = ['Apache-2.0']
     uploadName='cursor-processor'

@@ -1,1 +1,1 @@
-include ':app', ':cursor-observable-list', ':cursor-processor'
+include ':app', ':cursor-observable-list', ':cursor-processor', ':cursor-annotations'

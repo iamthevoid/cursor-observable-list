@@ -30,13 +30,14 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import iam.thevoid.annotation.ColumnName;
+import iam.thevoid.cursorannotations.ColumnName;
+
 
 /**
  * Created by iam on 23/09/2017.
  */
 @AutoService(Processor.class)
-@SupportedAnnotationTypes("iam.thevoid.annotation.ColumnName")
+@SupportedAnnotationTypes("iam.thevoid.cursor_annotations.ColumnName")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class ColumnNameProcessor extends AbstractProcessor {
 
