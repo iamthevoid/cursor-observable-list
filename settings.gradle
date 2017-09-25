@@ -1,1 +1,1 @@
-include ':app', ':columnbinder', ':cursorProcessor'
+include ':app', ':cursor-observable-list', ':cursor-Processor'

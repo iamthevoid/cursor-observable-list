@@ -36,11 +36,11 @@ android {
 publish {
     groupId = 'iam.thevoid.cursorobservablelist'
     artifactId = 'CursorObservableList'
-    publishVersion = '0.1'
+    publishVersion = '0.1.1'
     desc = 'Observable list based on android SqlLite Cursor. Create class with fields annotated with "ColumnName" and use it to create CursorObservableList'
     licences = ['Apache-2.0']
     uploadName='CursorObservableList'
-    website = 'https://github.com/iamthevoid/media-picker-android.git'
+    website = 'https://github.com/iamthevoid/cursor-observable-list.git'
 }
 
 dependencies {
