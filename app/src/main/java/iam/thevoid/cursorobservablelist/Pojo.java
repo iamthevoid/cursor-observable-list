@@ -2,7 +2,8 @@ package iam.thevoid.cursorobservablelist;
 
 import android.provider.ContactsContract;
 
-import iam.thevoid.annotation.ColumnName;
+import iam.thevoid.cursorannotations.ColumnName;
+
 
 /**
  * Created by iam on 25/09/2017.
