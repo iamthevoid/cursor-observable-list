@@ -1,4 +1,6 @@
 apply plugin: 'java-library'
+apply plugin: 'com.novoda.bintray-release'
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -8,3 +10,13 @@ dependencies {
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
+
+publish {
+    groupId = 'iam.thevoid.cursorprocessor'
+    artifactId = 'cursor-processor'
+    publishVersion = '0.1.5'
+    desc = 'Annotation processor for cursor-observable-list'
+    licences = ['Apache-2.0']
+    uploadName='cursor-processor'
+    website = 'https://github.com/iamthevoid/cursor-observable-list.git'
+}
