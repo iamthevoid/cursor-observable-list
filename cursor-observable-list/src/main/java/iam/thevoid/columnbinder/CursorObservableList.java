@@ -115,6 +115,16 @@ public class CursorObservableList<T> implements ObservableList<T> {
         return size() > 0;
     }
 
+    @Override
+    public int indexOf(Object o) {
+        for (int i = 0; i < cache.length; i++) {
+            if (o.equals(cache[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void close() {
         if (mCursor != null && !mCursor.isClosed()) {
             mCursor.close();
@@ -122,11 +132,6 @@ public class CursorObservableList<T> implements ObservableList<T> {
     }
 
     // ================ UNUSED METHODS ==================
-
-    @Override
-    public int indexOf(Object o) {
-        throw new IllegalStateException("Invalid method 'public int indexOf(Object o)'");
-    }
 
     @Override
     public int lastIndexOf(Object o) {
