@@ -68,7 +68,7 @@ public class CursorObservableList<T> implements ObservableList<T> {
                 mCursor.moveToPosition(i);
                 T item = instance();
                 setData(item, mCursor);
-                list.add(item);
+                list.set(i, item);
             }
         }
         return list;
@@ -113,7 +113,7 @@ public class CursorObservableList<T> implements ObservableList<T> {
 
     @Override
     public boolean isEmpty() {
-        return size() > 0;
+        return size() == 0;
     }
 
     @Override

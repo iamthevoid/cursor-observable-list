@@ -44,3 +44,10 @@ and Android Data Binding library u can use this list in layout
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 ```
+
+Gradle
+```
+implementation 'iam.thevoid.columnbinder:cursor-observable-list:0.2.2-fix4'
+implementation 'iam.thevoid.cursorprocessor:cursor-processor:0.2.0'
+annotationProcessor 'iam.thevoid.cursorprocessor:cursor-processor:0.2.0'
+```

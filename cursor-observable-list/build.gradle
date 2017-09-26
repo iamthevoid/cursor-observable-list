@@ -32,7 +32,7 @@ android {
 publish {
     groupId = 'iam.thevoid.columnbinder'
     artifactId = 'cursor-observable-list'
-    publishVersion = '0.2.2-fix2'
+    publishVersion = '0.2.2-fix4'
     desc = 'Observable list based on android SqlLite Cursor. Create class with fields annotated with "ColumnName" and use it to create CursorObservableList'
     licences = ['Apache-2.0']
     uploadName='cursor-observable-list'
