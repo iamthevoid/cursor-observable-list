@@ -76,7 +76,7 @@ public class ColumnNameProcessor extends AbstractProcessor {
 
             TypeSpec.Builder builder =
                     TypeSpec.classBuilder(enclosing.getSimpleName() + "_CursorBinding")
-                            .superclass(ParameterizedTypeName.get(ClassName.get("iam.thevoid.columnbinder", "CursorDataWrapper"), TypeVariableName.get("T")))
+                            .superclass(ParameterizedTypeName.get(ClassName.get("iam.thevoid.columnbinder", "CursorDataBinder"), TypeVariableName.get("T")))
                             .addTypeVariable(TypeVariableName.get("T", TypeVariableName.get(enclosing.toString())))
                             .addMethod(method.build())
                             .addModifiers(Modifier.FINAL, Modifier.PUBLIC);
