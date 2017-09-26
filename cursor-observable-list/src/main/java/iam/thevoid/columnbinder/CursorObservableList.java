@@ -61,7 +61,8 @@ public class CursorObservableList<T> implements ObservableList<T> {
             return new ArrayList<>();
         }
 
-        List<T> list = new ArrayList<>(Arrays.asList(cache));
+        List<T> list = new ArrayList<>();
+        list.addAll(Arrays.asList(cache));
         for (int i = 0, l = size(); i < l; i++) {
             if (list.get(i) == null) {
                 mCursor.moveToPosition(i);
