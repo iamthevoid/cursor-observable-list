@@ -5,7 +5,9 @@ import android.databinding.ListChangeRegistry;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +21,7 @@ public class CursorObservableList<T> implements ObservableList<T> {
 
     private final Class<T> typeParameterClass;
 
-    private final List<T> cache;
+    private final T[] cache;
 
     private final ListChangeRegistry listeners = new ListChangeRegistry();
     private final Cursor mCursor;
@@ -27,7 +29,7 @@ public class CursorObservableList<T> implements ObservableList<T> {
     public CursorObservableList(Class<T> typeParameterClass, Cursor cursor) {
         this.typeParameterClass = typeParameterClass;
         mCursor = cursor;
-        cache = new ArrayList<>(size());
+        cache = initCache();
     }
 
     @Override
@@ -41,9 +43,10 @@ public class CursorObservableList<T> implements ObservableList<T> {
 
         T item;
 
-        if ((item = cache.get(i)) == null) {
+        if ((item = cache[i]) == null) {
             item = instance();
             setData(item, mCursor);
+            cache[i] = item;
         }
 
         return item;
@@ -58,12 +61,14 @@ public class CursorObservableList<T> implements ObservableList<T> {
             return new ArrayList<>();
         }
 
-        List<T> list = new ArrayList<>(size());
+        List<T> list = Arrays.asList(cache);
         for (int i = 0, l = size(); i < l; i++) {
-            mCursor.moveToPosition(i);
-            T item = instance();
-            setData(item, mCursor);
-            list.add(item);
+            if (list.get(i) == null) {
+                mCursor.moveToPosition(i);
+                T item = instance();
+                setData(item, mCursor);
+                list.add(item);
+            }
         }
         return list;
     }
@@ -97,6 +102,12 @@ public class CursorObservableList<T> implements ObservableList<T> {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    private T[] initCache()
+    {
+        return (T[]) Array.newInstance(typeParameterClass, size());
     }
 
     @Override
