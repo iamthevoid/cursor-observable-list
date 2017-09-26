@@ -16,6 +16,11 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
 
     compileOptions {
@@ -27,7 +32,7 @@ android {
 publish {
     groupId = 'iam.thevoid.columnbinder'
     artifactId = 'cursor-observable-list'
-    publishVersion = '0.1.6'
+    publishVersion = '0.1.8'
     desc = 'Observable list based on android SqlLite Cursor. Create class with fields annotated with "ColumnName" and use it to create CursorObservableList'
     licences = ['Apache-2.0']
     uploadName='cursor-observable-list'
@@ -35,7 +40,21 @@ publish {
 }
 
 dependencies {
-    api project(':cursor-annotations')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
+    testImplementation files(getRuntimeJar())
+}
+
+def getRuntimeJar() {
+    try {
+        final File javaBase = new File(System.getProperty("java.home")).getCanonicalFile();
+        File runtimeJar = new File(javaBase, "lib/rt.jar");
+        if (runtimeJar.exists()) {
+            return runtimeJar;
+        }
+        runtimeJar = new File(javaBase, "jre/lib/rt.jar");
+        return runtimeJar.exists() ? runtimeJar : null;
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
 }

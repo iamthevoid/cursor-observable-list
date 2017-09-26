@@ -5,6 +5,7 @@ import android.databinding.ListChangeRegistry;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -18,12 +19,15 @@ public class CursorObservableList<T> implements ObservableList<T> {
 
     private final Class<T> typeParameterClass;
 
+    private final List<T> cache;
+
     private final ListChangeRegistry listeners = new ListChangeRegistry();
     private final Cursor mCursor;
 
     public CursorObservableList(Class<T> typeParameterClass, Cursor cursor) {
         this.typeParameterClass = typeParameterClass;
         mCursor = cursor;
+        cache = new ArrayList<>(size());
     }
 
     @Override
@@ -35,15 +39,33 @@ public class CursorObservableList<T> implements ObservableList<T> {
             throw new IllegalStateException("couldn't move cursor to position " + i);
         }
 
+        T item;
 
-        T item = instance();
-        setData(item, mCursor);
-//        item.setData(mCursor);
+        if ((item = cache.get(i)) == null) {
+            item = instance();
+            setData(item, mCursor);
+        }
+
         return item;
     }
 
     private void setData(T item, Cursor cursor) {
         ColumnBinder.bind(item, cursor);
+    }
+
+    public List<T> list() {
+        if (mCursor == null || mCursor.isClosed()) {
+            return new ArrayList<>();
+        }
+
+        List<T> list = new ArrayList<>(size());
+        for (int i = 0, l = size(); i < l; i++) {
+            mCursor.moveToPosition(i);
+            T item = instance();
+            setData(item, mCursor);
+            list.add(item);
+        }
+        return list;
     }
 
     @Override
@@ -82,6 +104,11 @@ public class CursorObservableList<T> implements ObservableList<T> {
         return size() > 0;
     }
 
+    public void close() {
+        if (mCursor != null && !mCursor.isClosed()) {
+            mCursor.close();
+        }
+    }
 
     // ================ UNUSED METHODS ==================
 
